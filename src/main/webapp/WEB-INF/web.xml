@@ -9,4 +9,14 @@
             30
         </session-timeout>
     </session-config>
+
+    <servlet>
+        <servlet-name>llamaProxy</servlet-name>
+        <servlet-class>bc.utils.llama.LlamaProxyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>llamaProxy</servlet-name>
+        <url-pattern>/chat</url-pattern>
+    </servlet-mapping>
 </web-app>
