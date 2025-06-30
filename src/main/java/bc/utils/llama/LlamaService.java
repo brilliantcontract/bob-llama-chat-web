@@ -39,7 +39,7 @@ public class LlamaService {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
-                sb.append(line);
+                sb.append(extractSegment(line));
             }
         }
         return sb.toString();
@@ -47,5 +47,22 @@ public class LlamaService {
 
     private String escape(String text) {
         return text.replace("\"", "\\\"");
+    }
+
+    private String extractSegment(String json) {
+        int idx = json.indexOf("\"response\":");
+        if (idx == -1) {
+            return json;
+        }
+        int start = json.indexOf('"', idx + 11);
+        if (start == -1) {
+            return "";
+        }
+        start++;
+        int end = json.indexOf('"', start);
+        if (end == -1) {
+            return "";
+        }
+        return json.substring(start, end);
     }
 }

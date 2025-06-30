@@ -14,7 +14,7 @@ public class LlamaProxyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String prompt = req.getParameter("prompt");
         String result = service.sendPrompt(prompt == null ? "" : prompt);
-        resp.setContentType("application/json");
+        resp.setContentType("text/plain;charset=UTF-8");
         resp.getWriter().write(result);
     }
 }
