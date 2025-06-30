@@ -26,4 +26,21 @@ public class LlamaServiceTest {
 
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void sendPromptCombinesStreamingResponse() throws Exception {
+        String stream = "{\"response\":\"A\",\"done\":false}\n" +
+                "{\"response\":\"B\",\"done\":false}\n" +
+                "{\"response\":\"C\",\"done\":true}\n";
+
+        HttpURLConnection connection = Mockito.mock(HttpURLConnection.class);
+        when(connection.getOutputStream()).thenReturn(new ByteArrayOutputStream());
+        when(connection.getInputStream()).thenReturn(new ByteArrayInputStream(stream.getBytes(StandardCharsets.UTF_8)));
+
+        ConnectionFactory factory = url -> connection;
+        LlamaService service = new LlamaService("http://test", factory);
+        String result = service.sendPrompt("hi");
+
+        assertThat(result, is("ABC"));
+    }
 }
