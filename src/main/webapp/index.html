@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>JavaScript documentation</title>
+        <title>Chat with Llama</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -24,6 +24,13 @@
         <div class="form-group">
             <textarea class="form-control mb-2" rows="3" data-bind="value: current" placeholder="Type your message"></textarea>
             <button class="btn btn-primary" data-bind="click: send">Send</button>
+        </div>
+        
+        <div class="mt-5">
+            Run LLAMA service on Workstation as root:
+            
+            <pre class="mt-3"><code>podman run --replace -d -p 11434:11434 --net=host --name ollama ollama/ollama
+curl -X POST http://localhost:11434/api/pull -d '{"name": "llama3:8b"}'</code></pre>
         </div>
 
         <script src="scripts/chat.js"></script>
