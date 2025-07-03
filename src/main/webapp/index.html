@@ -14,6 +14,15 @@
     </head>
     <body class="container mt-3">
         <h1>Chat with Llama</h1>
+
+        <div class="form-group">
+            <textarea class="form-control mb-2" rows="5" data-bind="value: current" placeholder="Type your message [REQUEST]"></textarea>
+            <textarea class="form-control mb-2" rows="5" data-bind="value: requests" placeholder="Requests"></textarea>
+            <button class="btn btn-primary" data-bind="click: send">Send</button>
+        </div>
+
+
+        <h5>Responses</h5>
         <div class="card mb-3">
             <div class="card-body" data-bind="foreach: messages">
                 <div>
@@ -21,14 +30,11 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <textarea class="form-control mb-2" rows="3" data-bind="value: current" placeholder="Type your message"></textarea>
-            <button class="btn btn-primary" data-bind="click: send">Send</button>
-        </div>
-        
-        <div class="mt-5">
+
+        <hr class="mt-5 mb-5" />
+        <div>
             Run LLAMA service on Workstation as root:
-            
+
             <pre class="mt-3"><code>podman run --replace -d -p 11434:11434 --net=host --name ollama ollama/ollama
 curl -X POST http://localhost:11434/api/pull -d '{"name": "llama3:8b"}'</code></pre>
         </div>
