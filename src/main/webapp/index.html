@@ -18,7 +18,11 @@
         <div class="form-group">
             <textarea class="form-control mb-2" rows="5" data-bind="value: current" placeholder="Type your message [REQUEST]"></textarea>
             <textarea class="form-control mb-2" rows="5" data-bind="value: requests" placeholder="Requests"></textarea>
-            <button class="btn btn-primary" data-bind="click: send">Send</button>
+            <button class="btn btn-primary mr-2" data-bind="click: send, enable: !sending()">Send</button>
+            <button class="btn btn-warning" data-bind="click: interrupt, enable: sending">Interrupt</button>
+            <div class="progress mt-2" data-bind="visible: sending">
+                <div class="progress-bar" role="progressbar" style="width: 0%" data-bind="style: { width: progress() + '%' }, text: progress() + '%' "></div>
+            </div>
         </div>
 
 
