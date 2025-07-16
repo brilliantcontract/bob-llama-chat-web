@@ -18,4 +18,31 @@
         <servlet-name>llamaProxy</servlet-name>
         <url-pattern>/chat</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>llamaPing</servlet-name>
+        <servlet-class>bc.utils.llama.LlamaPingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>llamaPing</servlet-name>
+        <url-pattern>/ping</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>llamaModels</servlet-name>
+        <servlet-class>bc.utils.llama.LlamaModelsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>llamaModels</servlet-name>
+        <url-pattern>/models</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>llamaPull</servlet-name>
+        <servlet-class>bc.utils.llama.LlamaPullServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>llamaPull</servlet-name>
+        <url-pattern>/pull</url-pattern>
+    </servlet-mapping>
 </web-app>
