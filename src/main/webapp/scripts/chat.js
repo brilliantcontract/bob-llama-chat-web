@@ -47,6 +47,18 @@ function runSequentially(prompts, sendFn, progressFn, isInterrupted, doneFn) {
     next();
 }
 
+function checkLlama() {
+    return $.get('ping');
+}
+
+function listModels() {
+    return $.get('models');
+}
+
+function pullLlama3() {
+    return $.post('pull', { name: 'llama3:8b' });
+}
+
 function LlamaViewModel() {
     var self = this;
     self.messages = ko.observableArray([]);
@@ -105,5 +117,29 @@ function LlamaViewModel() {
 
     self.clean = function () {
         self.messages([]);
+    };
+
+    self.ping = function () {
+        checkLlama().done(function () {
+            alert('Llama is running');
+        }).fail(function () {
+            alert('Llama is not reachable');
+        });
+    };
+
+    self.listModels = function () {
+        listModels().done(function (data) {
+            alert(data);
+        }).fail(function () {
+            alert('Failed to list models');
+        });
+    };
+
+    self.pullModel = function () {
+        pullLlama3().done(function () {
+            alert('Pull started');
+        }).fail(function () {
+            alert('Pull failed');
+        });
     };
 }
