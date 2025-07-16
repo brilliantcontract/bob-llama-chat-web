@@ -56,3 +56,32 @@ QUnit.test('runSequentially stops when interrupted', function(assert) {
     d1.resolve();
     cancel = true;
 });
+
+QUnit.test('checkLlama uses GET', function(assert) {
+    var orig = $.get;
+    var called = null;
+    $.get = function(url) { called = url; return $.Deferred(); };
+    checkLlama();
+    assert.equal(called, 'ping');
+    $.get = orig;
+});
+
+QUnit.test('listModels uses GET', function(assert) {
+    var orig = $.get;
+    var called = null;
+    $.get = function(url) { called = url; return $.Deferred(); };
+    listModels();
+    assert.equal(called, 'models');
+    $.get = orig;
+});
+
+QUnit.test('pullLlama3 uses POST', function(assert) {
+    var orig = $.post;
+    var called = null;
+    var data = null;
+    $.post = function(url, payload) { called = url; data = payload; return $.Deferred(); };
+    pullLlama3();
+    assert.equal(called, 'pull');
+    assert.deepEqual(data, { name: 'llama3:8b' });
+    $.post = orig;
+});
