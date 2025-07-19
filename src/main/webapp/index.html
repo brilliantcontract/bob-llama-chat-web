@@ -37,7 +37,11 @@
         <div class="mb-3">
             <button class="btn btn-secondary mr-2" data-bind="click: copyResponses">Copy</button>
             <button class="btn btn-secondary mr-2" data-bind="click: downloadResponses">Download</button>
-            <button class="btn btn-danger" data-bind="click: clean">Clean</button>
+            <button class="btn btn-danger mr-2" data-bind="click: clean">Clean</button>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="copyOnly" data-bind="checked: copyOnlyResponses" checked />
+                <label class="form-check-label" for="copyOnly">Copy only responses</label>
+            </div>
         </div>
         <div class="mb-3">
             <button class="btn btn-info mr-2" data-bind="click: ping">Check</button>
