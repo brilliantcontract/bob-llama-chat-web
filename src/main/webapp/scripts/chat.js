@@ -25,6 +25,13 @@ function collectResponses(messages) {
     }).join('\n');
 }
 
+function formatData(data) {
+    if (typeof data === 'object') {
+        return JSON.stringify(data, null, 2);
+    }
+    return data;
+}
+
 function runSequentially(prompts, sendFn, progressFn, isInterrupted, doneFn) {
     var total = prompts.length;
     var index = 0;
@@ -129,7 +136,7 @@ function LlamaViewModel() {
 
     self.listModels = function () {
         listModels().done(function (data) {
-            alert(data);
+            alert(formatData(data));
         }).fail(function () {
             alert('Failed to list models');
         });

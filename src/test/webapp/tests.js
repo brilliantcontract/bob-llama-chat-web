@@ -85,3 +85,12 @@ QUnit.test('pullLlama3 uses POST', function(assert) {
     assert.deepEqual(data, { name: 'llama3:8b' });
     $.post = orig;
 });
+
+QUnit.test('formatData converts objects to string', function(assert) {
+    var obj = { a: 1 };
+    assert.equal(formatData(obj), JSON.stringify(obj, null, 2));
+});
+
+QUnit.test('formatData leaves strings unchanged', function(assert) {
+    assert.equal(formatData('x'), 'x');
+});
