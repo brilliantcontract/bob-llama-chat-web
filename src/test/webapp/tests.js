@@ -17,6 +17,14 @@ QUnit.test('collectResponses joins llama messages', function(assert) {
     assert.equal(collectResponses(msgs), 'one\ntwo');
 });
 
+QUnit.test('collectChat joins all messages', function(assert) {
+    var msgs = [
+        { from: 'You', text: 'hi' },
+        { from: 'Llama', text: 'hey' }
+    ];
+    assert.equal(collectChat(msgs), 'You: hi\nLlama: hey');
+});
+
 QUnit.test('runSequentially processes prompts sequentially', function(assert) {
     var done = assert.async();
     var calls = [];
@@ -84,4 +92,9 @@ QUnit.test('pullLlama3 uses POST', function(assert) {
     assert.equal(called, 'pull');
     assert.deepEqual(data, { name: 'llama3:8b' });
     $.post = orig;
+});
+
+QUnit.test('view model copies only responses by default', function(assert) {
+    var vm = new LlamaViewModel();
+    assert.ok(vm.copyOnlyResponses());
 });

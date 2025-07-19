@@ -25,6 +25,12 @@ function collectResponses(messages) {
     }).join('\n');
 }
 
+function collectChat(messages) {
+    return messages.map(function (m) {
+        return m.from + ': ' + m.text;
+    }).join('\n');
+}
+
 function runSequentially(prompts, sendFn, progressFn, isInterrupted, doneFn) {
     var total = prompts.length;
     var index = 0;
@@ -67,6 +73,7 @@ function LlamaViewModel() {
     self.sending = ko.observable(false);
     self.progress = ko.observable(0);
     self._cancel = false;
+    self.copyOnlyResponses = ko.observable(true);
 
     self.send = function () {
         var prompts = preparePrompts(self.current(), self.requests());
@@ -99,14 +106,18 @@ function LlamaViewModel() {
     };
 
     self.copyResponses = function () {
-        var text = collectResponses(self.messages());
+        var text = self.copyOnlyResponses() ?
+            collectResponses(self.messages()) :
+            collectChat(self.messages());
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text);
         }
     };
 
     self.downloadResponses = function () {
-        var text = collectResponses(self.messages());
+        var text = self.copyOnlyResponses() ?
+            collectResponses(self.messages()) :
+            collectChat(self.messages());
         var blob = new Blob([text], { type: 'text/plain' });
         var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
